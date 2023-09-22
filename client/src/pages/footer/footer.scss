@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.Footer{
+    padding: 50px 100px;
+
+    .top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .items{
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+
+            h2{
+                margin-bottom: 10px;
+            }
+
+            span{
+                color: grey;
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+    }
+
+    hr{
+        height: 0px;
+        margin: 50px 0px;
+    }
+
+    .bottom{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h2{
+            color: darkgray;
+        }
+
+        span{
+            color: grey;
+        }
+
+        .bottom-left{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .bottom-right{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            .lang{
+                display: flex;
+                align-items: center;
+                gap: 5px;   
+            }
+            .usd{
+                display: flex;
+                align-items: center;
+                gap: 5px;   
+            }
+        }
+    }
+}

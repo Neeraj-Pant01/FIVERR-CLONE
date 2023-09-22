@@ -1,0 +1,202 @@
+.singlegig{
+    padding: 50px 100px;
+    display: flex;
+    gap: 100px;
+
+    .left-side{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .got-stars{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+
+            .stars{
+                display: flex;
+                align-items: center;
+                gap: 3px;
+                color: goldenrod;
+            }
+        }
+        .gig-slider{
+            width: 100% !important;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+
+            .gig-img-slide{
+                width: 90%;
+            img{
+                height: 400px;
+            }
+        }
+        }
+        .about-gig{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            p{
+                color: darkgray;
+            line-height: 26px;
+
+            }
+        }
+        .about-seller{
+            margin: 10px 0px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            img{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+            .user-info{
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                b{
+                    font-size: 13px;
+                }
+
+                .stars{
+                    color: goldenrod;
+                    font-size: 15px;
+                }
+                .button{
+                    font-size: 12px;
+                    border: 1px solid grey;
+                    padding: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .user-add-info{
+            border: 1px solid grey;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .top{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                padding: 20px;
+
+                .item{
+                    width: 40%;
+                    margin-bottom: 20px;
+                    display: flex;
+                    gap: 5px;
+                    flex-direction: column;
+
+                    span{
+                        color: grey;
+                        font-size: 12px;
+                    }
+                    b{
+                        font-size: 13px;
+                    }
+                }
+
+            }
+            hr{
+                width: 80%;
+                margin-left: 20px;
+            }
+
+            .bottom{
+                padding: 20px;
+                padding-top: 0px;
+                font-size: 13px;
+                color: grey;
+            }
+        }
+    }
+
+    .right-side{
+        flex: .9;
+        padding: 20px;
+        position: sticky;
+        top: 159px;
+        height: 300px;
+        // width: 100px;
+        border: 1px solid grey;
+        border-radius: 5px;
+        // padding-right: 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+
+        .top{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            span{
+                font-size: 21px;
+                color: grey;
+            }
+        }
+
+        p{
+            color: grey;
+        }
+
+        .time{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+        .d-time{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .revisions{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+    }
+
+    .checks{
+
+        li{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            list-style: none;
+            color: grey;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+    }
+    button{
+        background-color: teal;
+        color: white;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    }
+}
