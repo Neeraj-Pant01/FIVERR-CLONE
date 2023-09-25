@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.review{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0px;
+
+    .review-top{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .r-user-info{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            b{
+                font-size: 13px;
+            }
+            p{
+                font-size: 13px;
+            }
+        }
+
+    }
+
+    .stars{
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+    }
+
+    p{
+        color: grey;
+        font-size: 13px;
+    }
+
+    .helpfull-links{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        margin-top: 6px;
+
+        b{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+    }
+}

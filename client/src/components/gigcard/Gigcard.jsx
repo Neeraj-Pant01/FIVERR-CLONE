@@ -3,7 +3,6 @@ import './gigcard.scss'
 
 const Gigcard = ({card}) => {
   return (
-    <Link to={`/gig/123`}>
     <div className='gigcard'>
       <div className="gigcard-top">
         <img src={card.img} alt="" />
@@ -16,7 +15,6 @@ const Gigcard = ({card}) => {
         </div>
       </div>
     </div>
-    </Link>
   )
 }
 

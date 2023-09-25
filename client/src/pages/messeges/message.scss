@@ -1,0 +1,82 @@
+.Messages{
+    display: flex;
+    flex-direction: column;
+    padding: 50px 100px;
+
+    .title{
+        // width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // border: 2px solid green;
+
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: rgb(10, 141, 10);
+            color: white;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+
+    table{
+        border-spacing: 0px;
+
+        th{
+            padding-left: 10px;
+            // border: 2px solid green;
+            text-align: left;
+        }
+
+
+        td{
+            padding-left: 10px;
+
+            &:nth-child(1){
+                color: black;
+                font-weight: bold;
+            }
+
+            &:nth-child(2), &:nth-child(3){
+                color: grey;
+            }
+
+            &:nth-child(2){
+                cursor: pointer;
+            }
+
+            img{
+                width: 45px;
+                height: 20px;
+            }
+
+            button{
+                padding: 4px 10px;
+                background-color: teal;
+                color: white;
+                border: none;
+                outline: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+
+        tr{
+            height: 50px;;
+
+            &.active{
+                background-color: #1dbf730f;
+            }
+
+            .m{
+                color: inherit;
+            }
+            }
+        }
+    }

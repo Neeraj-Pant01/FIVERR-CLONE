@@ -2,9 +2,11 @@ import { Slider } from 'infinite-react-carousel'
 import ImgSlider from '../../components/slider/ImgSlider'
 import './singlegig.scss'
 import { AiFillClockCircle, AiFillStar, AiOutlineCheck, AiOutlineSync } from "react-icons/ai"
+import Review from '../../components/reviews/Review'
 
 const Singlegig = () => {
   return (
+    <>
     <div className='singlegig'>
       <div className="left-side">
         <h1>I will create ai generated art for you</h1>
@@ -102,6 +104,15 @@ const Singlegig = () => {
                 incredibly detailed result.
           </div>
         </div>
+
+        <div className="reviews">
+      <h2>Reviews</h2>
+      <Review />
+      <Review />
+      <Review />
+    </div>
+
+
       </div>
       <div className="right-side">
         <div className="top">
@@ -132,6 +143,7 @@ const Singlegig = () => {
               <button>continue</button>
       </div>
     </div>
+      </>
   )
 }
 

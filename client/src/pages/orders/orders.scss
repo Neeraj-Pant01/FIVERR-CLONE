@@ -1,0 +1,54 @@
+.orders{
+    padding: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .title{
+        // width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // border: 2px solid green;
+
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: rgb(10, 141, 10);
+            color: white;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+
+    table{
+        border-spacing: 0px;
+
+        th{
+            // border: 2px solid green;
+            text-align: left;
+        }
+
+
+        td{
+
+            img{
+                width: 45px;
+                height: 20px;
+            }
+        }
+
+        tr{
+            height: 50px;;
+
+            &:nth-child(even){
+                background-color: #1dbf730f;
+            }
+        }
+    }
+}

@@ -30,7 +30,9 @@ const Navbar = () => {
     <div className={active || pathname !=='/' ?'navbar active' : 'navbar'}>
       <div className="component">
         <div className="left">
+          <Link to={`/`}>
           <h1>FIVERR</h1>
+          </Link>
           <span>.</span>
         </div>
         <div className="right">
@@ -46,13 +48,13 @@ const Navbar = () => {
             {
               user.isSeller && (
                 <>
-                <Link className="menu-item">Mygigs</Link>
-                <Link className="menu-item">Add new gigs</Link>
+                <Link to={`/mygigs`} className="menu-item" onClick={()=>setOpen(false)}>Mygigs</Link>
+                <Link to={`/add`} className="menu-item" onClick={()=>setOpen(false)}>Add new gigs</Link>
                 </>
               )
             }
-            <Link className="menu-item">Orders</Link>
-            <Link className="menu-item">Messages</Link>
+            <Link to={`/orders`} className="menu-item" onClick={()=>setOpen(false)}>Orders</Link>
+            <Link to={`/messeges`} className="menu-item" onClick={()=>setOpen(false)}>Messages</Link>
             <Link className="menu-item">LogOut</Link>
           </div>
         }

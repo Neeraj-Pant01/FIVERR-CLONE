@@ -200,3 +200,12 @@
     }
     }
 }
+.reviews{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h2{
+        margin-top: 20px;
+    }
+}
