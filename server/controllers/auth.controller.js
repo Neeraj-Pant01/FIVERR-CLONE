@@ -55,11 +55,26 @@ exports.updateUser = async (req,res,next) =>{
                     new: true
                 });
                 res.status(200).json(updatedUser)
-            }catch(err){
+            }
+            catch(err){
                 next(err)
             }
         }
     }else{
         next(createError(404,"you can update only your account !"))
+    }
+}
+
+
+exports.deleteUser = async (req,res,next) =>{
+    if(req.params.id === req.user.id){
+        try{
+            await userModel.findByIdAndDelete(req.params.id)
+            res.status(200).json({message:"user has been deleted !"})
+        }catch(err){
+            next(err)
+        }
+    }else{
+        next(createError(403,"you can delete only your account !"))
     }
 }

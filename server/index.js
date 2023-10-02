@@ -3,6 +3,7 @@ const dotenv = require("dotenv").config()
 const cors = require("cors");
 const { Connection } = require("./db/connection");
 const authRoute = require("./routes/auth.route")
+const gigRoute = require("./routes/gigs.route")
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((error,req,res,next)=>{
 })
 
 app.use('/api/v1/auth',authRoute)
+app.use('/api/v1/gigs',gigRoute)
 
 const PORT = 9000 || process.env.PORT
 

@@ -9,8 +9,13 @@ import Orders from './pages/orders/Orders'
 import Add from './pages/add/Add'
 import Messeges from './pages/messeges/Messeges'
 import Message from './pages/message/Message'
+import Login from './pages/login/Login'
+import Register from './pages/register/Register'
+import { useSelector } from 'react-redux'
 
 const App = () => {
+
+  const user = useSelector((user)=>user.user.currentUser)
 
   const Layout = () =>{
 
@@ -61,7 +66,15 @@ const App = () => {
           path: "/message/:id",
           element: <Message />
         }
-      ]
+      ],
+    },
+    {
+      path:'/login',
+      element: user ? <Home /> : <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
     }
   ])
   return <RouterProvider router={router}/>
