@@ -12,7 +12,7 @@ exports.register = async (req, res, next) => {
 
         let ciphertext = CryptoJS.AES.encrypt(req.body.password, process.env.ENC_KEY).toString();
 
-        const newUser = new userModel({...req.body,password: ciphertext })
+        const newUser = new userModel({ ...req.body, password: ciphertext })
         const savedUSer = await newUser.save();
 
         res.status(200).json(savedUSer)
@@ -31,50 +31,61 @@ exports.login = async (req, res, next) => {
         const decPass = CryptoJS.AES.decrypt(user.password, process.env.ENC_KEY);
         const originalPass = decPass.toString(CryptoJS.enc.Utf8);
 
-        if(originalPass !== req.body.password) return next(createError(403,"wrong credentials"))
+        if (originalPass !== req.body.password) return next(createError(403, "wrong credentials"))
 
-        const accesstoken = jwt.sign({id:user._id,isSeller:user.isSeller},process.env.JWT_KEY,{expiresIn:"1d"})
+        const accesstoken = jwt.sign({ id: user._id, isSeller: user.isSeller }, process.env.JWT_KEY, { expiresIn: "1d" })
 
-        const {password, ...others} = user._doc;
+        const { password, ...others } = user._doc;
 
-        res.status(200).json({...others,accesstoken})
+        res.status(200).json({ ...others, accesstoken })
     } catch (err) {
         next(err)
-    }                                                                                                                                
+    }
 }
 
 
-exports.updateUser = async (req,res,next) =>{
-    if(req.user.id === req.params.id){
-        if(req.body.password){
+exports.updateUser = async (req, res, next) => {
+    if (req.user.id === req.params.id) {
+        if (req.body.password) {
             req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.ENC_KEY).toString();
-            try{
-                const updatedUser = await userModel.findByIdAndUpdate(req.params.id,{
-                    $set : req.body
-                },{
+            try {
+                const updatedUser = await userModel.findByIdAndUpdate(req.params.id, {
+                    $set: req.body
+                }, {
                     new: true
                 });
                 res.status(200).json(updatedUser)
             }
-            catch(err){
+            catch (err) {
                 next(err)
             }
         }
-    }else{
-        next(createError(404,"you can update only your account !"))
+    } else {
+        next(createError(404, "you can update only your account !"))
     }
 }
 
 
-exports.deleteUser = async (req,res,next) =>{
-    if(req.params.id === req.user.id){
-        try{
+exports.deleteUser = async (req, res, next) => {
+    if (req.params.id === req.user.id) {
+        try {
             await userModel.findByIdAndDelete(req.params.id)
-            res.status(200).json({message:"user has been deleted !"})
-        }catch(err){
+            res.status(200).json({ message: "user has been deleted !" })
+        } catch (err) {
             next(err)
         }
-    }else{
-        next(createError(403,"you can delete only your account !"))
+    } else {
+        next(createError(403, "you can delete only your account !"))
     }
 }
+
+exports.getAuser = async (req, res, next) => {
+        try {
+            const user = await userModel.findById(req.params.id)
+            res.status(200).json(user)
+        }
+        catch (err) {
+            next(err)
+        }
+}
+

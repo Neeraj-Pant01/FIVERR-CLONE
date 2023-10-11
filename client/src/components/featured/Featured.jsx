@@ -1,7 +1,17 @@
+import { useState } from "react"
 import "./featured.scss"
 import {AiOutlineSearch} from "react-icons/ai"
+import {useNavigate} from "react-router-dom"
 
 const Featured = () => {
+  const [search, setSearch] = useState()
+  const navigate = useNavigate()
+
+
+  const handleSubmit = async () =>{
+    navigate(`/gigs?search=${search}`)
+  }
+
   return (
     <div className="Featured">
       <div className="left">
@@ -9,9 +19,9 @@ const Featured = () => {
         <div className="search">
             <div className="searchbar">
                 < AiOutlineSearch style={{marginLeft:"20px"}}/>
-                <input type="text" placeholder="try building mobile app" />
+                <input type="text" placeholder="try building mobile app" onChange={(e)=>setSearch(e.target.value)}/>
             </div>
-            <button>Search</button>
+            <button onClick={handleSubmit}>Search</button>
         </div>
         <div className="popular">
             <p>Popular:</p>

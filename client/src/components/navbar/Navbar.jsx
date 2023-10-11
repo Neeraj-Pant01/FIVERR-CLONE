@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import "./navbar.scss"
 import { Link, useLocation } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const Navbar = () => {
   const [active, setActive] = useState(false)
   const {pathname} = useLocation();
   const [open, setOpen] = useState(false)
+  const user =useSelector((user)=>user.user.currentUser)
 
   const isActive = () =>{
     window.scrollY > 0 ? setActive(true) : setActive(false)
@@ -18,13 +20,6 @@ const Navbar = () => {
       window.removeEventListener("scroll",isActive)
     }
   },[])
-
-  const user = {
-    name:"anna",
-    // isSeller:false,
-    isSeller:true,
-
-  }
 
   return (
     <div className={active || pathname !=='/' ?'navbar active' : 'navbar'}>
@@ -40,7 +35,7 @@ const Navbar = () => {
           <span>Explore</span>
           <span>English</span>
          {user && <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUs1-PCs8AQL1zOQVzafBK0eTJ3CM70h4Xkg&usqp=CAU" alt="" onClick={()=>setOpen(!open)}/>}
-         {user && <span>{user.name}</span>}
+         {user && <span>{user.userName}</span>}
 
          {
           open &&

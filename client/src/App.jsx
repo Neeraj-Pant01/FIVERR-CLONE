@@ -13,6 +13,19 @@ import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import { useSelector } from 'react-redux'
 
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+import Sucess from './pages/sucess/Sucess'
+import Pay from './pages/payments/Pay'
+
+const queryClient = new QueryClient()
+
 const App = () => {
 
   const user = useSelector((user)=>user.user.currentUser)
@@ -21,9 +34,11 @@ const App = () => {
 
     return (
       <>
+      <QueryClientProvider client={queryClient}>
       <Navbar />
       <Outlet />
       <Footer />
+      </QueryClientProvider>
       </>
     )
 
@@ -75,6 +90,14 @@ const App = () => {
     {
       path: '/register',
       element: <Register />
+    },
+    {
+      path: '/pay/:id',
+      element: <Pay />
+    },
+    {
+      path: '/sucess',
+      element: <Sucess />
     }
   ])
   return <RouterProvider router={router}/>

@@ -1,13 +1,38 @@
 import { Link } from 'react-router-dom'
 import './mygigs.scss'
 import { AiOutlineDelete } from "react-icons/ai"
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import makeApiRequest from '../../utils/newRequest'
+import { useSelector } from 'react-redux'
 
 const Mygigs = () => {
-  const currentUser = {
-    name:"user",
-    isSeller:true,
-    // isSeller:false
+  const queryClient = useQueryClient()
+  const token =useSelector((user)=>user.user.currentUser.accesstoken)
+  const currentUser =useSelector((user)=>user.user.currentUser)
+
+  const api = makeApiRequest(token);
+
+  const { isLoading, error, data} = useQuery({
+    queryKey: [`mygigs`],
+    queryFn: () =>
+    api.get(`/gigs?userId=${currentUser._id}`).then((respone)=>{
+      return respone.data
+    })
+  })
+
+  const mutation = useMutation({
+    mutationFn: (id) => {
+      return api.delete(`/gigs/${id}`);
+    },
+    onSuccess:()=>{
+      queryClient.invalidateQueries([`mygigs`])
+    }
+  });
+
+  const handleDelete = (id) =>{
+    mutation.mutate(id)
   }
+
   return (
     <div className='mygigs'>
       <div className="title">
@@ -29,65 +54,21 @@ const Mygigs = () => {
             <th>Sales</th>
             <th>Action</th>
         </tr>
-        <tr>
-          <td>
-            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-          </td>
-          <td>Stunning Concept Art</td>
-          <td>59.<sup>99</sup></td>
-          <td>13</td>
-          <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}}/></td>
-        </tr>
-
-        <tr>
-          <td>
-            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-          </td>
-          <td>Stunning Concept Art</td>
-          <td>59.<sup>99</sup></td>
-          <td>13</td>
-          <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}}/></td>
-        </tr>
-
-        <tr>
-          <td>
-            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-          </td>
-          <td>Stunning Concept Art</td>
-          <td>59.<sup>99</sup></td>
-          <td>13</td>
-          <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}}/></td>
-        </tr>
-
-        <tr>
-          <td>
-            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-          </td>
-          <td>Stunning Concept Art</td>
-          <td>59.<sup>99</sup></td>
-          <td>13</td>
-          <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}}/></td>
-        </tr>
-
-        <tr>
-          <td>
-            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-          </td>
-          <td>Stunning Concept Art</td>
-          <td>59.<sup>99</sup></td>
-          <td>13</td>
-          <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}}/></td>
-        </tr>
-
-        <tr>
-          <td>
-            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-          </td>
-          <td>Stunning Concept Art</td>
-          <td>59.<sup>99</sup></td>
-          <td>13</td>
-          <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}}/></td>
-        </tr>
+        {
+          isLoading ? "loading..." : error ? "something went wrong" : data.map((g)=>{
+            return (
+              <tr key={g._id}>
+              <td>
+                <img src={g.cover} />
+              </td>
+              <td>{g.title}</td>
+              <td>{g.price}.<sup>99</sup></td>
+              <td>{g.sales}</td>
+              <td><AiOutlineDelete style={{color:"tomato",cursor:"pointer",fontSize:"24px"}} onClick={()=>handleDelete(g._id)}/></td>
+            </tr>
+            )
+          })
+        }
       </table>
     </div>
   )

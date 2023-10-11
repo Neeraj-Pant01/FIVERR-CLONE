@@ -1,27 +1,41 @@
 import { AiFillDislike, AiFillLike, AiFillStar, AiOutlineFlag } from 'react-icons/ai'
 import './reviews.scss'
+import { useSelector } from 'react-redux'
+import makeApiRequest from '../../utils/newRequest'
+import { useQuery } from '@tanstack/react-query'
 
-const Review = () => {
+const Review = ({r}) => {
+  const token = useSelector((user)=>user.user.currentUser)
+  const api = makeApiRequest(token)
+
+  const { isLoading:userLoading, error:userError, data:userData,} = useQuery({
+
+    queryKey: [`auth/${r.userId}`],
+    queryFn: () =>
+    api.get(`/auth/${r.userId}`).then((respone)=>{
+      return respone.data
+    })
+  })
+
+
   return (
     <div className='review'>
-      <div className="review-top">
+      {
+        userLoading ? "Loading..." : userError ? "something went wrong" : 
+        <div className="review-top">
         <img src='https://images.pexels.com/photos/7532110/pexels-photo-7532110.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load' />
         <div className="r-user-info">
-            <b>john doe</b>
-            <p><AiOutlineFlag /> united states</p>
+            <b>{userData.userName}</b>
+            <p><AiOutlineFlag style={{color:"red"}}/>{userData.country}</p>
         </div>
       </div>
+      }
       <div className="stars">
-        <AiFillStar style={{color:"goldenrod"}} />
-        <AiFillStar style={{color:"goldenrod"}}/>
-        <AiFillStar style={{color:"goldenrod"}}/>
-        <AiFillStar style={{color:"goldenrod"}}/>
-        <AiFillStar style={{color:"goldenrod"}}/>
+        {Array(r.star).fill().map((s,i)=><AiFillStar style={{color:"goldenrod"}} key={i}/>)}
       </div>
 
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae ad maiores temporibus minima id atque explicabo sunt soluta voluptatibus? Voluptatem.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sint?
+        {r.desc}
       </p>
 
       <div className="helpfull-links">

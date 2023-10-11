@@ -1,17 +1,47 @@
 import { AiOutlineArrowDown, AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import './gig.scss'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Gig from '../../components/gig/Gig'
 import { gigs } from '../../data'
+import { useQuery } from '@tanstack/react-query'
+import makeApiRequest from '../../utils/newRequest'
+import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 const Gigs = () => {
   const [sort, setSort] = useState('sales')
   const [open, setOpen] = useState(false)
+  const minRef = useRef()
+  const maxRef = useRef()
 
   const handleClick = (val) => {
     setSort(val)
     setOpen(false)
   }
+  const {search} = useLocation()
+
+
+  //using usequerry and reusable function
+  const token =useSelector((user)=>user.user.currentUser)
+  const api = makeApiRequest(token)
+
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ['gigs'],
+    queryFn: () =>
+    api.get(`/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`).then((respone)=>{
+      return respone.data
+    })
+  })
+  // console.log(data)
+
+  const apply = () =>{
+    refetch()
+  }
+
+  useEffect(()=>{
+    refetch()
+  },[sort])
+
   return (
     <div className='gigs'>
       <div className="breadcrums">
@@ -23,9 +53,9 @@ const Gigs = () => {
       <div className="gig-top">
         <div className="filters">
           <b>Budget</b>
-          <input type='number' placeholder='min'></input>
-          <input type='number' placeholder='max'></input>
-          <button>Apply</button>
+          <input type='number' placeholder='min' ref={minRef}></input>
+          <input type='number' placeholder='max' ref={maxRef}></input>
+          <button onClick={apply}>Apply</button>
         </div>
         <div className="right-menu">
           <span>Sort by</span>
@@ -46,8 +76,8 @@ const Gigs = () => {
       </div>
 
       <div className="gig-bottom">
-        {
-          gigs.map((gig)=><Gig gig={gig}/>)
+        {isLoading ? "Loading" : error ? "something went wrong" :
+          data.map((gig)=><Gig gig={gig} key={gig._id}/>)
         }
       </div>
     </div>

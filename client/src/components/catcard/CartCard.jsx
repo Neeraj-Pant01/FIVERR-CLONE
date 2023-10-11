@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const CartCard = ({card}) => {
     return (
-        <Link to={`gigs?cat=design`}>
+        <Link to={`gigs?cat=${card.cat}`}>
             <div className='catcard'>
                 <img src={card.img} alt='' />
                 <div className="info">
